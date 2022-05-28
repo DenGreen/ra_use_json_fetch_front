@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export const useJsonFetch = (
   url,
@@ -9,20 +9,21 @@ export const useJsonFetch = (
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
+  const [newBody, setNewBody] = useState(body);
 
   useEffect(() => {
     const fetchNews = async () => {
       setLoading(true);
 
       try {
-        if (body) {
-          body = JSON.stringify(body);
+        if (newBody) {
+          setNewBody(JSON.stringify(newBody));
           headers["Content-Type"] = "application/json";
         }
 
         const response = await fetch(process.env.REACT_APP_NEWS_URL + url, {
           method,
-          body,
+          newBody,
           headers,
         });
         const data = await response.json();
