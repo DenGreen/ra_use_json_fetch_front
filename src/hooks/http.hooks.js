@@ -41,7 +41,7 @@ export const useJsonFetch = (
       }
     };
     fetchNews();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { data, loading, error };
 };
